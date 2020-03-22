@@ -9,6 +9,8 @@ public class Ball : MonoBehaviour
     public Transform start;
     public Transform yeBrick;
     public Transform beBrick;
+    public Transform oeBrick;
+    public LevelManager lManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,8 @@ public class Ball : MonoBehaviour
         if (collision.CompareTag("down")) 
         {
             rb.velocity = Vector2.zero;
-            isPlaying = false; 
+            isPlaying = false;
+            lManager.LooseLives();
         }
 
     }
@@ -45,19 +48,27 @@ public class Ball : MonoBehaviour
 
             Transform newExplosion = Instantiate(yeBrick, collision.transform.position,collision.transform.rotation);
             Destroy(newExplosion.gameObject, 2.5f);
-
+            lManager.UpdateScore();
 
             Destroy(collision.gameObject);
         }
-       if (collision.transform.CompareTag("Bbrick"))
+       else if (collision.transform.CompareTag("Bbrick"))
         {
 
             Transform newExplosion = Instantiate(beBrick, collision.transform.position, collision.transform.rotation);
             Destroy(newExplosion.gameObject, 2.5f);
-
+            lManager.UpdateScore();
 
             Destroy(collision.gameObject);
         }
+       else if (collision.transform.CompareTag("Obrick"))
+        {
 
+            Transform newExplosion = Instantiate(oeBrick, collision.transform.position, collision.transform.rotation);
+            Destroy(newExplosion.gameObject, 2.5f);
+            lManager.UpdateScore();
+
+            Destroy(collision.gameObject);
+        }
     }
 }
