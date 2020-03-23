@@ -80,5 +80,23 @@ public class Ball : MonoBehaviour
             }
             
         }
+        else if
+            (collision.transform.CompareTag("DBbrick"))
+        {
+            if (brick.hitsTobreak > 1)
+            {
+                brick.HitsToBreak();
+            }
+            else
+            {
+                Transform newExplosion = Instantiate(oeBrick, collision.transform.position, collision.transform.rotation);
+                Destroy(newExplosion.gameObject, 2.5f);
+                lManager.UpdateScore();
+
+                Destroy(collision.gameObject);
+            }
+
+        }
+
     }
 }
