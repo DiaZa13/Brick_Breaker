@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Bricks : MonoBehaviour
 {
+    public int hitsTobreak;
+    public Sprite hitSprite;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void HitsToBreak()
     {
-        
+        hitsTobreak--;
+        GetComponent<SpriteRenderer>().sprite = hitSprite;        
+    
     }
 }

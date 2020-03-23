@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     public Transform beBrick;
     public Transform oeBrick;
     public LevelManager lManager;
+    private Bricks brick;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,8 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        brick = collision.gameObject.GetComponent<Bricks>();
+
         if (collision.transform.CompareTag("Ybrick")) {
 
             Transform newExplosion = Instantiate(yeBrick, collision.transform.position,collision.transform.rotation);
@@ -63,12 +66,19 @@ public class Ball : MonoBehaviour
         }
        else if (collision.transform.CompareTag("Obrick"))
         {
+            if (brick.hitsTobreak > 1) 
+            {
+                brick.HitsToBreak();
+            }
+            else
+            {
+                Transform newExplosion = Instantiate(oeBrick, collision.transform.position, collision.transform.rotation);
+                Destroy(newExplosion.gameObject, 2.5f);
+                lManager.UpdateScore();
 
-            Transform newExplosion = Instantiate(oeBrick, collision.transform.position, collision.transform.rotation);
-            Destroy(newExplosion.gameObject, 2.5f);
-            lManager.UpdateScore();
-
-            Destroy(collision.gameObject);
+                Destroy(collision.gameObject);
+            }
+            
         }
     }
 }

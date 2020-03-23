@@ -9,6 +9,7 @@ TagManager:
   - Bbrick
   - Obrick
   - brick
+  - DBbrick
   layers:
   - Default
   - TransparentFX
